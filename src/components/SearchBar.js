@@ -2,22 +2,23 @@ import React from 'react';
 import { Text, View, StyleSheet, TextInput } from 'react-native';
 
 //icons
-import { Feather } from "@expo/vector-icons";
+import { Feather } from '@expo/vector-icons';
 
 const SearchBar = ({ searchYelp, searchTerm, setSearchTerm }) => {
 	return (
 		<View style={styles.backgroundStyle}>
-			<Feather style={styles.iconStyle} name="search" />
+			<Feather style={styles.iconStyle} name='search' />
 			<TextInput
 				onEndEditing={() => searchYelp(searchTerm)}
 				onChangeText={userInput => setSearchTerm(userInput)}
-				value={searchTerm} style={styles.inputStyle}
-				placeholder="Search"
-				autoCapitalize="none"
+				value={searchTerm}
+				style={styles.inputStyle}
+				placeholder='Search'
+				autoCapitalize='none'
 				autoCorrect={false}
 			/>
 		</View>
-	)
+	);
 };
 
 const styles = StyleSheet.create({
@@ -26,12 +27,13 @@ const styles = StyleSheet.create({
 		height: 50,
 		borderRadius: 5,
 		marginHorizontal: 15,
-		flexDirection: "row",
-		marginTop: 10
+		flexDirection: 'row',
+		marginTop: 10,
+		marginBottom: 5
 	},
 	iconStyle: {
 		fontSize: 35,
-		alignSelf: "center",
+		alignSelf: 'center',
 		marginHorizontal: 15
 	},
 	inputStyle: {

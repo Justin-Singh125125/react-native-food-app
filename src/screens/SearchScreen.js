@@ -1,48 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 
-//api's
-import yelp from "../utils/API/yelp";
+//hooks
+import useResults from '../hooks/useResults';
 
 //components
 import SearchBar from '../components/SearchBar';
+import ResultsList from '../components/ResultsList';
 
 const SearchScreen = () => {
+	const [searchTerm, setSearchTerm] = useState('');
+	const [searchYelp, results, errorMessage] = useResults();
 
-	const [searchTerm, setSearchTerm] = useState("");
-	const [results, setResults] = useState([]);
-	const [errorMessage, setErrorMessage] = useState("");
-
-	useEffect(() => {
-		const defaultSearchTerm = 'Pasta';
-		searchYelp(defaultSearchTerm);
-	}, []);
-
-
-	const searchYelp = async (term) => {
-		try {
-			const response = await yelp.get("/search", {
-				params: {
-					limit: 50,
-					term: term,
-					location: "san jose"
-				}
-			})
-
-			setResults(response.data.businesses);
-
-			console.log(results)
-		}
-		catch (e) {
-			console.log(e);
-			setErrorMessage("Something went wrong! Please try again later")
-		}
-
-	}
-
+	const filterResultsByPrice = price => {
+		return results.filter(results => results.price === price);
+	};
 
 	return (
-		<View>
+		<View style={styles.container}>
 			<SearchBar
 				searchYelp={searchYelp}
 				searchTerm={searchTerm}
@@ -51,11 +26,23 @@ const SearchScreen = () => {
 
 			{errorMessage ? <Text>{errorMessage}</Text> : null}
 
-			<Text>There are {results.length} Found!</Text>
+			{results.length !== 0 ? (
+				<ScrollView>
+					<ResultsList results={filterResultsByPrice('$')} title='Cost Effective' />
+					<ResultsList results={filterResultsByPrice('$$')} title='Bit Pricier' />
+					<ResultsList results={filterResultsByPrice('$$$')} title='Big Spender' />
+				</ScrollView>
+			) : (
+				<Text>Loading...</Text>
+			)}
 		</View>
 	);
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	container: {
+		flex: 1
+	}
+});
 
 export default SearchScreen;
