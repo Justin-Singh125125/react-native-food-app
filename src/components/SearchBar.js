@@ -5,42 +5,42 @@ import { Text, View, StyleSheet, TextInput } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
 const SearchBar = ({ searchYelp, searchTerm, setSearchTerm }) => {
-	return (
-		<View style={styles.backgroundStyle}>
-			<Feather style={styles.iconStyle} name='search' />
-			<TextInput
-				onEndEditing={() => searchYelp(searchTerm)}
-				onChangeText={userInput => setSearchTerm(userInput)}
-				value={searchTerm}
-				style={styles.inputStyle}
-				placeholder='Search'
-				autoCapitalize='none'
-				autoCorrect={false}
-			/>
-		</View>
-	);
+  return (
+    <View style={styles.backgroundStyle}>
+      <Feather style={styles.iconStyle} name='search' />
+      <TextInput
+        onEndEditing={() => searchYelp(searchTerm)}
+        onChangeText={userInput => setSearchTerm(userInput)}
+        value={searchTerm}
+        style={styles.inputStyle}
+        placeholder='Search'
+        autoCapitalize='none'
+        autoCorrect={false}
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-	backgroundStyle: {
-		backgroundColor: '#f0EEEE',
-		height: 50,
-		borderRadius: 5,
-		marginHorizontal: 15,
-		flexDirection: 'row',
-		marginTop: 10,
-		marginBottom: 5
-	},
-	iconStyle: {
-		fontSize: 35,
-		alignSelf: 'center',
-		marginHorizontal: 15
-	},
-	inputStyle: {
-		flex: 1,
-		padding: 2,
-		fontSize: 18
-	}
+  backgroundStyle: {
+    backgroundColor: '#f0EEEE',
+    height: 50,
+    borderRadius: 5,
+    marginHorizontal: 15,
+    flexDirection: 'row',
+    marginTop: 10,
+    marginBottom: 5
+  },
+  iconStyle: {
+    fontSize: 35,
+    alignSelf: 'center',
+    marginHorizontal: 15
+  },
+  inputStyle: {
+    flex: 1,
+    padding: 2,
+    fontSize: 18
+  }
 });
 
 export default SearchBar;
