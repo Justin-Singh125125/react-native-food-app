@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator
+} from 'react-native';
 
 //hooks
 import useResults from '../hooks/useResults';
@@ -24,9 +30,17 @@ const SearchScreen = () => {
         setSearchTerm={setSearchTerm}
       />
 
+      {results.length === 0 && (
+        <ActivityIndicator
+          style={{ marginTop: 10 }}
+          size='large'
+          color='grey'
+        />
+      )}
+
       {errorMessage ? <Text>{errorMessage}</Text> : null}
 
-      {results.length !== 0 ? (
+      {results.length !== 0 && (
         <ScrollView>
           <ResultsList
             results={filterResultsByPrice('$')}
@@ -41,8 +55,6 @@ const SearchScreen = () => {
             title='Big Spender'
           />
         </ScrollView>
-      ) : (
-        <Text>Loading...</Text>
       )}
     </View>
   );

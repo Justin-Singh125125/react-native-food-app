@@ -11,15 +11,10 @@ export default () => {
   }, []);
 
   const searchYelp = async term => {
+    //when user sends request, empty out array to look like loading
+    setResults([]);
     try {
-      const response = await yelp.get('/search', {
-        params: {
-          limit: 50,
-          term: term,
-          location: 'san jose'
-        }
-      });
-
+      const response = await yelp.getYelpRestuarants(term);
       setResults(response.data.businesses);
     } catch (e) {
       console.log(e);
